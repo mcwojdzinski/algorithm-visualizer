@@ -1,12 +1,17 @@
 import './Navbar.css'
-import { ControlsProps } from './ControlsTypes.ts'
+
+// Ui
 import {
     Button,
     ControlsWrapper,
     Label,
     Select,
     ControlsGroup,
+    ButtonWrapper,
 } from './ControlsUi.tsx'
+
+// Interface
+import { ControlsProps } from './ControlsTypes.ts'
 
 const Controls = ({
     handleLength,
@@ -23,7 +28,7 @@ const Controls = ({
     return (
         <ControlsWrapper>
             <ControlsGroup>
-                <Label>Speed: {speed}</Label>
+                <Label>Speed: {speed} ms</Label>
                 <input
                     type="range"
                     onChange={handleSpeed}
@@ -46,31 +51,32 @@ const Controls = ({
                     value={len}
                 ></input>
             </ControlsGroup>
+            <ControlsGroup>
+                <Select onChange={handleAlgo} disabled={sorting} value={algo}>
+                    <option value="bubbleSort" disabled>
+                        Bubble Sort
+                    </option>
+                    <option value="insertionSort" disabled>
+                        Insertion Sort
+                    </option>
+                    <option value="selectionSort" disabled>
+                        Selection Sort
+                    </option>
+                    <option value="mergeSort" disabled>
+                        Merge Sort
+                    </option>
+                    <option value="quickSort">Quick Sort</option>
+                </Select>
+            </ControlsGroup>
 
-            <Select onChange={handleAlgo} disabled={sorting} value={algo}>
-                <option value="bubbleSort" disabled>
-                    Bubble Sort
-                </option>
-                <option value="insertionSort" disabled>
-                    Insertion Sort
-                </option>
-                <option value="selectionSort" disabled>
-                    Selection Sort
-                </option>
-                <option value="mergeSort" disabled>
-                    Merge Sort
-                </option>
-                <option value="quickSort">Quick Sort</option>
-            </Select>
-
-            <div>
+            <ButtonWrapper>
                 <Button onClick={generateRandomArray} disabled={sorting}>
                     Randomize
                 </Button>
                 <Button onClick={handleSort} disabled={sorting || completed}>
                     Sort
                 </Button>
-            </div>
+            </ButtonWrapper>
         </ControlsWrapper>
     )
 }

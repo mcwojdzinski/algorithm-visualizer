@@ -10,30 +10,40 @@ import styled from 'styled-components'
 
 const Wrapper = styled.main`
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     flex-direction: column;
     height: 100vh;
+
+    @media (min-width: 768px) {
+        justify-content: center;
+    }
 `
 
 const Header = styled.h1`
-    font-size: 50px;
+    font-size: 25px;
     color: white;
+    text-align: center;
     text-transform: capitalize;
     letter-spacing: 2px;
-    margin: 20px;
+    margin: 10px;
+
+    @media (min-width: 768px) {
+        font-size: 40px;
+        margin: 15px;
+    }
 `
 
 const App = () => {
-    const [algo, setAlgo] = useState('quickSort')
-    const [len, setLength] = useState(30)
-    const [blocks, setBlocks] = useState([])
-    const [sorting, setSorting] = useState(false)
-    const [completed, setCompleted] = useState(true)
-    const [speed, setSpeed] = useState(250)
-    const [compare, setCompare] = useState([])
-    const [swap, setSwap] = useState([])
-    const [sortedIndex, setSortedIndex] = useState([])
+    const [algo, setAlgo] = useState<string>('quickSort')
+    const [len, setLength] = useState<number>(30)
+    const [blocks, setBlocks] = useState<number[]>([])
+    const [sorting, setSorting] = useState<boolean>(false)
+    const [completed, setCompleted] = useState<boolean>(true)
+    const [speed, setSpeed] = useState<number>(250)
+    const [compare, setCompare] = useState<(number | null)[]>([])
+    const [swap, setSwap] = useState<(number | null)[]>([])
+    const [sortedIndex, setSortedIndex] = useState<number[]>([])
 
     // Generating shuffled array from 1 to chosen length
     const generateRandomArray = (len: number) => {
@@ -41,7 +51,7 @@ const App = () => {
         setSorting(false)
         setSortedIndex([])
 
-        const randomArray = Array.from(Array(len + 1).keys()).slice(1)
+        const randomArray: number[] = Array.from(Array(len + 1).keys()).slice(1)
 
         for (let i = randomArray.length - 1; i > 0; i--) {
             const randomIndex = Math.floor(Math.random() * (i - 1))
@@ -60,7 +70,7 @@ const App = () => {
     }, [len, algo])
 
     // setting the selected algorithm
-    const handleAlgo = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleAlgo = (event: ChangeEvent<HTMLSelectElement>) => {
         setAlgo(event.target.value)
     }
 
@@ -76,7 +86,11 @@ const App = () => {
 
     // Sorting according to the algorithm
     const handleSort = () => {
-        const sortAccOrder = (order: any[]) => {
+        const sortAccOrder = (
+            order: Array<
+                [number | null, number | null, number[] | null, number | null]
+            >
+        ) => {
             ;(function loop(i: number) {
                 setTimeout(function () {
                     const [j, k, arr, index] = order[i]
@@ -84,7 +98,7 @@ const App = () => {
                     setSwap([])
 
                     if (index !== null) {
-                        setSortedIndex((prevState: number[]) => {
+                        setSortedIndex((prevState: number[]): number[] => {
                             return [...prevState, index]
                         })
                     }

@@ -3,9 +3,9 @@ import React from 'react'
 export interface ControlsProps {
     handleLength: React.ChangeEventHandler<HTMLInputElement>
     handleSpeed: React.ChangeEventHandler<HTMLInputElement>
-    handleAlgo: React.ChangeEvent<HTMLInputElement>
+    handleAlgo: React.ChangeEventHandler<HTMLSelectElement>
     generateRandomArray: () => void
-    handleSort: () => never
+    handleSort: () => void
     sorting: boolean
     completed: boolean
     len: number

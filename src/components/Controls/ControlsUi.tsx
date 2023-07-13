@@ -8,10 +8,24 @@ export const ControlsWrapper = styled.div`
     align-items: center;
     background-color: #f4f4f4;
     box-shadow: 0px 2px 7px black;
-    display: flex;
-    justify-content: space-around;
+
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(2, 50%);
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
     min-height: 100px;
     padding: 0 20px;
+
+    @media (min-width: 768px) {
+        display: flex;
+        justify-content: space-around;
+    }
+`
+
+export const ButtonWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
 `
 
 export const ControlsGroup = styled.div`
@@ -27,11 +41,16 @@ export const Button = styled.button`
     color: #f1f1f1;
     font-size: 1em;
     font-weight: bold;
+    min-width: 110px;
     margin: 0 10px;
     outline: none;
     padding: 13px 10px;
     cursor: pointer;
     pointer-events: ${(props) => (props.disabled ? 'none' : null)};
+
+    @media (min-width: 768px) {
+        min-width: 130px;
+    }
 `
 
 export const Select = styled.select`
@@ -42,6 +61,7 @@ export const Select = styled.select`
     font-size: 0.9em;
     font-weight: bold;
     padding: 13px 10px;
+    min-width: 130px;
 `
 
 export const Label = styled.label`
@@ -49,4 +69,8 @@ export const Label = styled.label`
     display: block;
     text-align: center;
     font-size: 20px;
+`
+
+export const Input = styled.input`
+    min-width: 130px;
 `
