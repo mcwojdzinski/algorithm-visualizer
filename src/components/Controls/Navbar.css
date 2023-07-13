@@ -1,0 +1,38 @@
+
+.toolbox select, input[type='range'] {
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.toolbox input, select, button {
+    min-width: 130px;
+}
+
+.toolbox select {
+    background: #008dba;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 5px 5px;
+}
+
+@media (max-width: 992px) {
+    nav {
+        flex-direction: column;
+    }
+
+    .toolbox {
+        display: block;
+        text-align: center;
+    }
+
+    .toolbox > div {
+        margin: 10px 0;
+    }
+
+    .speed {
+        display: none;
+    }
+}
