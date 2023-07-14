@@ -1,6 +1,6 @@
 export interface BarProps {
     blocks: number[]
-    compare: boolean | (number | null)[] | number
-    sorted: boolean | number[]
-    swap: false | (number | null)[]
+    compare: [number, number] | null | false | (number | null)[]
+    sorted: number[] | null
+    swap: [number, number] | null | false | (number | null)[]
 }

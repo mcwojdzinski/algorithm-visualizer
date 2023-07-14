@@ -30,7 +30,7 @@ const Bar = ({ blocks, compare, sorted, swap }: BarProps) => {
                 const height = (block * 500) / blocks.length
                 let bg = 'turquoise'
 
-                // i th element is being compared with some other element
+                // i-th element is being compared with some other element
                 if (compare && (i === compare[0] || i === compare[1])) {
                     bg = '#ffff50'
                 }
@@ -38,7 +38,7 @@ const Bar = ({ blocks, compare, sorted, swap }: BarProps) => {
                 if (swap && (i === swap[0] || i === swap[1])) {
                     bg = 'red'
                 }
-                // i th element is in its correct position
+                // i-th element is in its correct position
                 if (sorted && sorted.includes(i)) {
                     bg = '#4bc52e'
                 }

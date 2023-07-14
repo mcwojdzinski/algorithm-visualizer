@@ -1,6 +1,9 @@
 import styled from 'styled-components'
+import { ButtonTypeProps } from './ControlsTypes.ts'
 
 export const ControlsWrapper = styled.div`
+    padding: 10px;
+    width: 100vw;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -9,16 +12,18 @@ export const ControlsWrapper = styled.div`
     background-color: #f4f4f4;
     box-shadow: 0px 2px 7px black;
 
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-template-columns: repeat(2, 50%);
     grid-template-rows: repeat(2, 50%);
     grid-column-gap: 5px;
     grid-row-gap: 5px;
     min-height: 100px;
-    padding: 0 20px;
+    height: auto;
 
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
         display: flex;
+        flex-direction: row;
         justify-content: space-around;
     }
 `
@@ -28,14 +33,26 @@ export const ButtonWrapper = styled.div`
     flex-direction: row;
 `
 
+export const ControlsSliders = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    @media (min-width: 1024px) {
+        width: 30%;
+        justify-content: space-around;
+    }
+`
+
 export const ControlsGroup = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 10px;
 `
 
-export const Button = styled.button`
-    background-color: #008dba;
+export const Button = styled.button<ButtonTypeProps>`
+    background-color: ${(props) => (props.warning ? '#d0312d' : '#008dba')};
     border-radius: 5px;
     border: none;
     color: #f1f1f1;

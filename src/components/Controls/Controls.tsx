@@ -1,5 +1,3 @@
-import './Navbar.css'
-
 // Ui
 import {
     Button,
@@ -8,6 +6,7 @@ import {
     Select,
     ControlsGroup,
     ButtonWrapper,
+    ControlsSliders,
 } from './ControlsUi.tsx'
 
 // Interface
@@ -19,6 +18,7 @@ const Controls = ({
     handleAlgo,
     generateRandomArray,
     handleSort,
+    handleStop,
     sorting,
     completed,
     len,
@@ -27,30 +27,32 @@ const Controls = ({
 }: ControlsProps) => {
     return (
         <ControlsWrapper>
-            <ControlsGroup>
-                <Label>Speed: {speed} ms</Label>
-                <input
-                    type="range"
-                    onChange={handleSpeed}
-                    min="1"
-                    max="10"
-                    value={Math.ceil(400 / speed)}
-                    disabled={sorting}
-                ></input>
-            </ControlsGroup>
+            <ControlsSliders>
+                <ControlsGroup>
+                    <Label>Speed: {speed} ms</Label>
+                    <input
+                        type="range"
+                        onChange={handleSpeed}
+                        min="1"
+                        max="10"
+                        value={Math.ceil(400 / speed)}
+                        disabled={sorting}
+                    ></input>
+                </ControlsGroup>
 
-            <ControlsGroup className="group length">
-                <Label>Length: {len}</Label>
-                <input
-                    type="range"
-                    onChange={handleLength}
-                    min="5"
-                    max={100}
-                    step="1"
-                    disabled={sorting}
-                    value={len}
-                ></input>
-            </ControlsGroup>
+                <ControlsGroup>
+                    <Label>Length: {len}</Label>
+                    <input
+                        type="range"
+                        onChange={handleLength}
+                        min="5"
+                        max={100}
+                        step="1"
+                        disabled={sorting}
+                        value={len}
+                    ></input>
+                </ControlsGroup>
+            </ControlsSliders>
             <ControlsGroup>
                 <Select onChange={handleAlgo} disabled={sorting} value={algo}>
                     <option value="bubbleSort" disabled>
@@ -75,6 +77,9 @@ const Controls = ({
                 </Button>
                 <Button onClick={handleSort} disabled={sorting || completed}>
                     Sort
+                </Button>
+                <Button onClick={handleStop} warning={true} disabled={!sorting}>
+                    Stop
                 </Button>
             </ButtonWrapper>
         </ControlsWrapper>

@@ -6,9 +6,14 @@ export interface ControlsProps {
     handleAlgo: React.ChangeEventHandler<HTMLSelectElement>
     generateRandomArray: () => void
     handleSort: () => void
+    handleStop: () => void
     sorting: boolean
     completed: boolean
     len: number
     speed: number
     algo: string
+}
+
+export interface ButtonTypeProps {
+    warning?: boolean
 }

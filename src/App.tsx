@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from 'react'
+import { useState, useEffect, ChangeEvent, useRef } from 'react'
 
 import Controls from './components/Controls/Controls.tsx'
 import Legends from './components/Legends/Legends'
@@ -44,6 +44,9 @@ const App = () => {
     const [compare, setCompare] = useState<(number | null)[]>([])
     const [swap, setSwap] = useState<(number | null)[]>([])
     const [sortedIndex, setSortedIndex] = useState<number[]>([])
+    const [stopSorting, setStopSorting] = useState<boolean>(false)
+
+    const sortingTimeoutRef = useRef<number | null>(null)
 
     // Generating shuffled array from 1 to chosen length
     const generateRandomArray = (len: number) => {
@@ -85,47 +88,70 @@ const App = () => {
     }
 
     // Sorting according to the algorithm
-    const handleSort = () => {
-        const sortAccOrder = (
-            order: Array<
-                [number | null, number | null, number[] | null, number | null]
-            >
-        ) => {
-            ;(function loop(i: number) {
-                setTimeout(function () {
-                    const [j, k, arr, index] = order[i]
-                    setCompare([j, k])
-                    setSwap([])
+    const sortAccOrder = (
+        order: Array<
+            [number | null, number | null, number[] | null, number | null]
+        >
+    ) => {
+        let i = 0
+        const len = order.length
 
-                    if (index !== null) {
-                        setSortedIndex((prevState: number[]): number[] => {
-                            return [...prevState, index]
-                        })
-                    }
+        const sortingLoop = () => {
+            if (stopSorting) {
+                setSorting(false)
+                setCompleted(true)
+                return
+            }
 
-                    if (arr) {
-                        setBlocks(arr)
-                        if (j !== null || k != null) setSwap([j, k])
-                    }
+            const [j, k, arr, index] = order[i]
+            setCompare([j, k])
+            setSwap([])
 
-                    if (++i < order.length) {
-                        loop(i)
-                    } else {
-                        setSorting(false)
-                        setCompleted(true)
-                    }
-                }, speed)
-            })(0)
+            if (index !== null) {
+                setSortedIndex((prevState: number[]): number[] => [
+                    ...prevState,
+                    index,
+                ])
+            }
+
+            if (arr) {
+                setBlocks(arr)
+                if (j !== null || k != null) setSwap([j, k])
+            }
+
+            i++
+
+            if (i < len) {
+                sortingTimeoutRef.current = setTimeout(sortingLoop, speed)
+            } else {
+                setSorting(false)
+                setCompleted(true)
+            }
         }
 
         setSorting(true)
+        setCompleted(false)
+        setStopSorting(false)
 
+        sortingLoop()
+    }
+
+    const handleSort = () => {
         algo === 'quickSort'
             ? sortAccOrder(quickSort(blocks))
             : (() => {
                   setSorting(false)
                   setCompleted(true)
               })()
+    }
+
+    const handleStop = () => {
+        if (sortingTimeoutRef.current) {
+            clearTimeout(sortingTimeoutRef.current)
+        }
+        setStopSorting(true)
+        setSorting(false)
+        setCompleted(true)
     }
 
     return (
@@ -137,6 +163,7 @@ const App = () => {
                 handleSpeed={handleSpeed}
                 handleAlgo={handleAlgo}
                 handleSort={handleSort}
+                handleStop={handleStop}
                 sorting={sorting}
                 completed={completed}
                 len={len}
