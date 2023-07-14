@@ -2,7 +2,7 @@ import { LegendWrapper, SingleLegend, Square } from './LegendsUi.tsx'
 
 const Legends = () => {
     return (
-        <LegendWrapper>
+        <LegendWrapper data-testid="legends">
             <SingleLegend>
                 <Square compare={true} /> Compare
             </SingleLegend>

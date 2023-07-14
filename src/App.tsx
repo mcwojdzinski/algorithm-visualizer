@@ -122,6 +122,7 @@ const App = () => {
             i++
 
             if (i < len) {
+                // @ts-ignore
                 sortingTimeoutRef.current = setTimeout(sortingLoop, speed)
             } else {
                 setSorting(false)

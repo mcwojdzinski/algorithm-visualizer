@@ -26,11 +26,12 @@ const Controls = ({
     algo,
 }: ControlsProps) => {
     return (
-        <ControlsWrapper>
+        <ControlsWrapper data-testid="controls">
             <ControlsSliders>
                 <ControlsGroup>
-                    <Label>Speed: {speed} ms</Label>
+                    <Label htmlFor="speed">Speed: {speed} ms</Label>
                     <input
+                        id="speed"
                         type="range"
                         onChange={handleSpeed}
                         min="1"
@@ -41,8 +42,9 @@ const Controls = ({
                 </ControlsGroup>
 
                 <ControlsGroup>
-                    <Label>Length: {len}</Label>
+                    <Label htmlFor="length">Length: {len}</Label>
                     <input
+                        id="length"
                         type="range"
                         onChange={handleLength}
                         min="5"
@@ -54,7 +56,12 @@ const Controls = ({
                 </ControlsGroup>
             </ControlsSliders>
             <ControlsGroup>
-                <Select onChange={handleAlgo} disabled={sorting} value={algo}>
+                <Select
+                    data-testid="algorithm"
+                    onChange={handleAlgo}
+                    disabled={sorting}
+                    value={algo}
+                >
                     <option value="bubbleSort" disabled>
                         Bubble Sort
                     </option>

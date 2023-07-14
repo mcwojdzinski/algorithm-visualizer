@@ -25,7 +25,7 @@ const Bar = ({ blocks, compare, sorted, swap }: BarProps) => {
     }, [blocks.length])
 
     return (
-        <ChartWrapper>
+        <ChartWrapper data-testid="bar">
             {blocks.map((block, i) => {
                 const height = (block * 500) / blocks.length
                 let bg = 'turquoise'
